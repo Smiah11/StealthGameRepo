@@ -8,9 +8,7 @@
 #include "BT_SelectPatrolPoint.generated.h"
 
 
-/**
- * 
- */
+
 UCLASS()
 class STEALTHGAME_API UBTSelectPatrolPoint : public UBTTaskNode
 {

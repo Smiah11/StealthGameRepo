@@ -49,5 +49,5 @@ void ADistractionProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherAc
 	
 	}
 	MakeNoise(1.0f, GetInstigator());
-	//Destroy();
+	Destroy();
 }

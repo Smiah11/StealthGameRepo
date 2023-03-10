@@ -29,18 +29,6 @@ EBTNodeResult::Type UBTSelectPatrolPoint::ExecuteTask(UBehaviorTreeComponent & O
 		AActor*NextPatrolPoint = AvailablePatrolPoints[RandomNumber]; // chooses Patrol Point at random (makes it easier to have multiple AI in the map)
 		
 
-		//checks to see if there's any other points the AI needs to go past
-	/*	if (AICon->CurrentPatrolPoint != AvailablePatrolPoints.Num() - 1)
-		{
-			NextPatrolPoint = Cast<AAIPatrolPoint>(AvailablePatrolPoints[++AICon->CurrentPatrolPoint]);
-		}
-
-		else //if there's no other points
-		{
-			NextPatrolPoint = Cast<AAIPatrolPoint>(AvailablePatrolPoints[0]);
-			AICon->CurrentPatrolPoint = 0;
-		}*/
-		
 		BlackboardComp->SetValueAsObject("MoveTo",NextPatrolPoint);
 
 		return EBTNodeResult::Succeeded;

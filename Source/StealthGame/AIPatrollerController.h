@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
+#include <Perception/PawnSensingComponent.h>
 #include "AIPatrollerController.generated.h"
+
 
 /**
  * 
@@ -18,6 +20,7 @@ class STEALTHGAME_API AAIPatrollerController : public AAIController
 
 		//Behaviour Tree Component
 		UBehaviorTreeComponent* BehaviourComp;
+
 
 
 		//Blackboard Component
@@ -43,7 +46,8 @@ class STEALTHGAME_API AAIPatrollerController : public AAIController
 		TArray<AActor*>PatrolPoints;
 		float MaxWalkSpeed = 150.f;
 
-		void OnPossess(APawn* const Pawn) override;
+
+		
 
 
 
@@ -56,7 +60,14 @@ public:
 
 	void PlayerCaught(APawn*Pawn);
 
-	void SoundHeard(FVector Location);
+	void SoundHeard(const FVector& Location);
+
+
+	void OnPossess(APawn* const Pawn) override;
+
+	//void ReturnToObjective();
+
+
 
 	//inline getter functions
 

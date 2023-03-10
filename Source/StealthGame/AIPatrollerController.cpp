@@ -7,6 +7,7 @@
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/BehaviorTree.h"
+#include "Perception/AIPerceptionComponent.h"
 #include "DistractionProjectile.h"
 #include <Runtime/Engine/Classes/Kismet/GameplayStatics.h>
 
@@ -16,6 +17,7 @@ AAIPatrollerController::AAIPatrollerController()
 	// Initialise Blackboard and Behaviour Tree
 	BehaviourComp = CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviourComp"));
 	BlackboardComp = CreateDefaultSubobject<UBlackboardComponent>(TEXT("BlackboardComp"));
+
 
 	// initalise Blackboard Keys
 	MoveToKey = "MoveTo";
@@ -36,14 +38,25 @@ void AAIPatrollerController::PlayerCaught(APawn* const pawn)
 		BlackboardComp->SetValueAsObject(MoveToPlayerKey, pawn);
 	}
 }
-void AAIPatrollerController::SoundHeard(FVector Location)
+void AAIPatrollerController::SoundHeard(const FVector& Location)
 {
-	if (BlackboardComp)
+
+	AAIPatrollerController* AIController = this;
+	UBlackboardComponent* BlackboardComponent = AIController ? AIController->FindComponentByClass<UBlackboardComponent>() : nullptr;
+
+	if (BlackboardComponent)
 	{
-		BlackboardComp->SetValueAsVector(MoveToSoundKey, Location);
+		BlackboardComponent->SetValueAsVector(MoveToSoundKey, Location);
+		
+	}
+
+	// Move the AI to the noise location using the AI Move To task node
+	if (AIController)
+	{
+		AIController->MoveToLocation(Location);
+		
 	}
 }
-
 
 
 void AAIPatrollerController::OnPossess(APawn* const pawn)

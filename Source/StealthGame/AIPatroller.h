@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "BehaviorTree/BehaviorTree.h"
+#include "AIPatrollerController.h"
 #include "AIPatroller.generated.h"
+
 
 UCLASS()
 class STEALTHGAME_API AAIPatroller : public ACharacter
@@ -30,6 +32,11 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = AI)
 		class UPawnSensingComponent* PawnSenseComp; //allows the AI to use sight for player detection
 
+
+	
+	
+
+	// Call this function to set the noise location
 private:
 	UFUNCTION()
 		void OnPlayerCaught(APawn* Pawn);
@@ -38,4 +45,10 @@ private:
 	UFUNCTION()
 	void OnNoiseHeard(APawn* PawnInstigator, const FVector& Location, float Volume);
 
+	
+	FVector NoiseLocation;
+
+
+	
 };
+

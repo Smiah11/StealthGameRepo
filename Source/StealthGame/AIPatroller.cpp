@@ -6,7 +6,11 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "Perception/PawnSensingComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Navigation/PathFollowingComponent.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include <DrawDebugHelpers.h>
+#include <Perception/AIPerceptionComponent.h>
+#include "StealthGameMode.h"
 
 
 // Sets default values
@@ -20,6 +24,7 @@ AAIPatroller::AAIPatroller()
 	
 
 }
+
 
 // Called when the game starts or when spawned
 void AAIPatroller::BeginPlay()
@@ -46,17 +51,20 @@ void AAIPatroller::SetupPlayerInputComponent(class UInputComponent* PlayerInputC
 
 }
 
+
+
 void AAIPatroller::OnNoiseHeard(APawn* PawnInstigator, const FVector& Location, float Volume)
 {
 	AAIPatrollerController* AIController = Cast<AAIPatrollerController>(GetController()); // gets reference to player controller
 
 	if (AIController)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("You've been heard"));
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Sound has been heard"));
 		DrawDebugSphere(GetWorld(), Location, 32.0f, 12, FColor::Cyan, false, 10.0f);
 		DrawDebugString(GetWorld(), Location, "Distracted", nullptr, FColor::Cyan, 0.5f, true);
-		GetCharacterMovement()-> MaxWalkSpeed = 500.f;
+		GetCharacterMovement()-> MaxWalkSpeed = 350.f;
 		AIController->SoundHeard(Location);
+		
 	}
 }
 void AAIPatroller::OnPlayerCaught(APawn* Pawn)
@@ -70,6 +78,13 @@ void AAIPatroller::OnPlayerCaught(APawn* Pawn)
 		DrawDebugSphere(GetWorld(), Pawn->GetActorLocation(), 32.0f, 12, FColor::Purple, false, 10.0f);
 		GetCharacterMovement()-> MaxWalkSpeed = 700.f;
 		AIController->PlayerCaught(Pawn);
+
+		AStealthGameMode* GM = Cast<AStealthGameMode>(GetWorld()->GetAuthGameMode());
+		if (GM)
+		{
+			GM->CompleteMission(Pawn, false);
+		}
+	
 	}
 
 }

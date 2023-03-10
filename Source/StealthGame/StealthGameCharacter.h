@@ -55,6 +55,8 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Gameplay")
 		UAnimMontage* FireAnimation;
 
+	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
+		bool bIsCarryingObjective; // Is the player carrying the objective
 
 
 protected:
