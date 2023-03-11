@@ -15,6 +15,7 @@ AHidingObject::AHidingObject()
 	RootComponent = BoxCollision;
 
 	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &AHidingObject::OnOverlapBegin);
+	BoxCollision->OnComponentEndOverlap.AddDynamic(this, &AHidingObject::OnOverlapEnd);
 
 
 }
@@ -28,5 +29,14 @@ void AHidingObject::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AAc
 	{
 		OtherActor->SetActorHiddenInGame(true);
 	}
+}
+
+void AHidingObject::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if (OtherActor && OtherActor != this)
+	{
+		OtherActor->SetActorHiddenInGame(false);
+	}
+
 }
 

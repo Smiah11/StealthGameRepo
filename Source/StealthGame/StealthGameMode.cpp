@@ -15,7 +15,7 @@ void AStealthGameMode::CompleteMission(APawn*InstigatorPawn, bool bMissionSucces
 	{
 		InstigatorPawn->DisableInput(nullptr);//disables game character movement
 
-		
+	//switching the camera to a different view upon mission success/failure	
 			TArray<AActor*>ReturnedActors;
 
 			UGameplayStatics::GetAllActorsOfClass(this, SpectatingViewpointClass, ReturnedActors);

@@ -23,15 +23,15 @@ AExtractionZone::AExtractionZone()
 void AExtractionZone::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Overlapped with extraction zone!"));
+	UE_LOG(LogTemp, Warning, TEXT("Overlapped with extraction zone!"));//log warning for testing
 
 	AStealthGameCharacter*MyChar= Cast<AStealthGameCharacter>(OtherActor);
-	if (MyChar&&MyChar->bIsCarryingObjective==true)
+	if (MyChar&&MyChar->bIsCarryingObjective==true)// checks to see if the player is carrying the objective and if the player is the actual player and not the ai
 	{
 		AStealthGameMode*GM=Cast<AStealthGameMode>(GetWorld()->GetAuthGameMode());
 		if (GM)
 		{
-			GM->CompleteMission(MyChar,true);
+			GM->CompleteMission(MyChar,true);// mission success
 		}
 	}
 }

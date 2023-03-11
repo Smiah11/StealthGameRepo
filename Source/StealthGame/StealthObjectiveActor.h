@@ -30,6 +30,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = Effects)
 	UParticleSystem* PickupFX;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Sound")
+		USoundBase* CarryingSound;
 
 	void SpawnEffects();//Plays Particle effect on overlap
 

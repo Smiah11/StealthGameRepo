@@ -63,7 +63,7 @@ void AAIPatroller::OnNoiseHeard(APawn* PawnInstigator, const FVector& Location, 
 		DrawDebugSphere(GetWorld(), Location, 32.0f, 12, FColor::Cyan, false, 10.0f);
 		DrawDebugString(GetWorld(), Location, "Distracted", nullptr, FColor::Cyan, 0.5f, true);
 		GetCharacterMovement()-> MaxWalkSpeed = 350.f;
-		AIController->SoundHeard(Location);
+		AIController->SoundHeard(Location);//controls the ai after sound was heard and location was identified
 		
 	}
 }
@@ -77,8 +77,9 @@ void AAIPatroller::OnPlayerCaught(APawn* Pawn)
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, TEXT("You've been caught"));
 		DrawDebugSphere(GetWorld(), Pawn->GetActorLocation(), 32.0f, 12, FColor::Purple, false, 10.0f);
 		GetCharacterMovement()-> MaxWalkSpeed = 700.f;
-		AIController->PlayerCaught(Pawn);
+		AIController->PlayerCaught(Pawn);//controls the ai after player was caught/seen
 
+		//returns with a failed mission if the player is caught
 		AStealthGameMode* GM = Cast<AStealthGameMode>(GetWorld()->GetAuthGameMode());
 		if (GM)
 		{

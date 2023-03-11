@@ -6,6 +6,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "StealthGameCharacter.h"
 #include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
 
 // Sets default values
 AStealthObjectiveActor::AStealthObjectiveActor()
@@ -42,13 +43,16 @@ void AStealthObjectiveActor::NotifyActorBeginOverlap(AActor* OtherActor)
 	Super::NotifyActorBeginOverlap(OtherActor);//calls the base implemenation
 
 	SpawnEffects();
-
 	AStealthGameCharacter*MyCharacter = Cast<AStealthGameCharacter>(OtherActor);
 	if (MyCharacter)
 	{
 		MyCharacter->bIsCarryingObjective = true;
 
+		UGameplayStatics::PlaySoundAtLocation(this, CarryingSound, MyCharacter->GetActorLocation());
+
 		Destroy();//destroys actor to make it look like its been picked up
+		MakeNoise(1.0f, MyCharacter, GetActorLocation());
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Objective Picked Up"));
 	}
 }
 

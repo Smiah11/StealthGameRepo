@@ -72,8 +72,8 @@ void AStealthGameCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 {
 	// Set up gameplay key bindings
 	check(PlayerInputComponent);
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);//sets up the jump action
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);// sets up the stop jump action
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &AStealthGameCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AStealthGameCharacter::MoveRight);
@@ -86,12 +86,12 @@ void AStealthGameCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AStealthGameCharacter::LookUpAtRate);
 
-	PlayerInputComponent->BindAction("Crouch",  IE_Pressed,this, &AStealthGameCharacter::StartCrouch);
-	PlayerInputComponent->BindAction("Crouch",  IE_Released, this, &AStealthGameCharacter::StopCrouch);
-	PlayerInputComponent->BindAction("Distraction", IE_Pressed, this, &AStealthGameCharacter::Fire);
+	PlayerInputComponent->BindAction("Crouch",  IE_Pressed,this, &AStealthGameCharacter::StartCrouch);//Sets up the Crouch action
+	PlayerInputComponent->BindAction("Crouch",  IE_Released, this, &AStealthGameCharacter::StopCrouch);//sets up the stop crouch action
+	PlayerInputComponent->BindAction("Distraction", IE_Pressed, this, &AStealthGameCharacter::Fire);//sets up the distraction action
 
-	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AStealthGameCharacter::StartSprint);
-	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AStealthGameCharacter::StopSprint);
+	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AStealthGameCharacter::StartSprint);// sets up the sprint action
+	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AStealthGameCharacter::StopSprint);// sets up the stop sprint action
 
 
 
@@ -104,13 +104,13 @@ void AStealthGameCharacter::Fire()
 	{		
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Distraction Used"));
 		
-		FVector SpawnLocation = ACharacter::GetMesh()->GetSocketLocation("Distraction");
-		FRotator SpawnRotation = ACharacter::GetMesh()->GetSocketRotation("Distraction");
+		FVector SpawnLocation = ACharacter::GetMesh()->GetSocketLocation("Distraction");// Get the Distraction socket location
+		FRotator SpawnRotation = ACharacter::GetMesh()->GetSocketRotation("Distraction");// Get the Distraction socket rotation
 		
 		//Set Spawn Collision Handling Override
-		FActorSpawnParameters ActorSpawnParams;
+		FActorSpawnParameters ActorSpawnParams;// Specifies the parameters for spawning an actor
 		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-		ActorSpawnParams.Instigator = this;
+		ActorSpawnParams.Instigator = this;//Specifies the instigator of the actor being spawned
 
 
 		// spawn the projectile at the SOCKET
@@ -163,15 +163,12 @@ void AStealthGameCharacter::ReportNoise(USoundBase* Sound, float Volume)
 
 void AStealthGameCharacter::StartSprint()
 {
-	GetCharacterMovement()->MaxWalkSpeed = 1000.f;
-
-	
-
+	GetCharacterMovement()->MaxWalkSpeed = 1000.f;//sets the sprint speed
 	
 }
 void AStealthGameCharacter::StopSprint()
 {
-	GetCharacterMovement()->MaxWalkSpeed = 300.f;
+	GetCharacterMovement()->MaxWalkSpeed = 300.f;//sets the speed back to normal after sprinting
 	
 	
 	

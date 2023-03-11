@@ -31,8 +31,6 @@ ADistractionProjectile::ADistractionProjectile()
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = true;
 
-	DrawDebugSphere(GetWorld(), GetActorLocation(), 100, 12, FColor::Red, false, 1.0f, 0, 1.0f);
-
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;

@@ -35,12 +35,11 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
-	bool CarryingObjective;
-
-	UFUNCTION(BlueprintCallable, Category = AI)
+	/* Reports sound to AI can be called in blueprints*/
+	UFUNCTION(BlueprintCallable, Category = "AI")
 		void ReportNoise(USoundBase* Sound, float Volume);
 
+	/* allows noise emission*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Sound)
 		UPawnNoiseEmitterComponent* NoiseEmitterComp;
 
@@ -52,11 +51,13 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Gameplay")
 		USoundBase* FireSound;
 
+	/** AnimMontage to play each time we fire */
 	UPROPERTY(EditDefaultsOnly, Category = "Gameplay")
 		UAnimMontage* FireAnimation;
 
+	/* Is the player carrying the objective */
 	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
-		bool bIsCarryingObjective; // Is the player carrying the objective
+		bool bIsCarryingObjective; 
 
 
 protected:
@@ -91,10 +92,13 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-
+	/*Start Crouch Function*/
 	void StartCrouch();
+	/*Stop Crouch Function*/
 	void StopCrouch();
+	/*Start Sprint Function*/
 	void StartSprint();
+	/*Stop Sprint Function*/
 	void StopSprint();
 
 

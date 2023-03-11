@@ -22,7 +22,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -33,22 +33,23 @@ public:
 		class UPawnSensingComponent* PawnSenseComp; //allows the AI to use sight for player detection
 
 
-	
-	
+
+
 
 	// Call this function to set the noise location
 private:
+	/*Function for when player is seen/caught*/
 	UFUNCTION()
 		void OnPlayerCaught(APawn* Pawn);
 
-
+	/*Function for when a noise is heard whether it be footsteps or a distraction*/
 	UFUNCTION()
-	void OnNoiseHeard(APawn* PawnInstigator, const FVector& Location, float Volume);
+		void OnNoiseHeard(APawn* PawnInstigator, const FVector& Location, float Volume);
 
-	
+
 	FVector NoiseLocation;
 
 
-	
+
 };
 
