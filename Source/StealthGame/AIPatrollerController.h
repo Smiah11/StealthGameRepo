@@ -46,6 +46,7 @@ class STEALTHGAME_API AAIPatrollerController : public AAIController
 		TArray<AActor*>PatrolPoints;
 		float MaxWalkSpeed = 150.f;
 
+	
 
 		
 
@@ -67,7 +68,7 @@ public:
 
 	//void ReturnToObjective();
 
-
+	bool bPlayerCaught; // flag to check if player is already caught
 
 	//inline getter functions
 

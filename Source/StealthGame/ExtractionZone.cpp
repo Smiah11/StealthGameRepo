@@ -4,6 +4,7 @@
 #include "ExtractionZone.h"
 #include "StealthGameCharacter.h"
 #include "StealthGameMode.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 AExtractionZone::AExtractionZone()
@@ -19,6 +20,15 @@ AExtractionZone::AExtractionZone()
 	ExtractionComp->OnComponentBeginOverlap.AddDynamic(this, &AExtractionZone::HandleOverlap);
 }
 
+void AExtractionZone::ReturntoMainMenu()
+{
+
+	UE_LOG(LogTemp, Warning, TEXT("Returning to main menu"));
+	UGameplayStatics::OpenLevel(this, TEXT("MainMenu_lvl"));
+
+}
+
+
 
 void AExtractionZone::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -32,6 +42,7 @@ void AExtractionZone::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AA
 		if (GM)
 		{
 			GM->CompleteMission(MyChar,true);// mission success
+			GetWorldTimerManager().SetTimer(TimerHandle_MainMenu, this, &AExtractionZone::ReturntoMainMenu, 5.0f);
 		}
 	}
 }

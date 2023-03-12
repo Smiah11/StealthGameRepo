@@ -19,11 +19,13 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = Components)
 	UBoxComponent* ExtractionComp;
 
+
 protected:
 	/*handle an overlap event between the player and the extraction zone */
 	UFUNCTION()
 	void HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 public:	
-
+	FTimerHandle TimerHandle_MainMenu;
+	void ReturntoMainMenu();
 };

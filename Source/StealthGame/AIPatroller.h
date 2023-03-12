@@ -32,8 +32,10 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = AI)
 		class UPawnSensingComponent* PawnSenseComp; //allows the AI to use sight for player detection
 
+	void ReturnToMainMenu();
+	FTimerHandle TimerHandle;
 
-
+	
 
 
 	// Call this function to set the noise location
@@ -46,6 +48,7 @@ private:
 	UFUNCTION()
 		void OnNoiseHeard(APawn* PawnInstigator, const FVector& Location, float Volume);
 
+	
 
 	FVector NoiseLocation;
 

@@ -11,6 +11,7 @@
 #include <DrawDebugHelpers.h>
 #include <Perception/AIPerceptionComponent.h>
 #include "StealthGameMode.h"
+#include <Kismet/GameplayStatics.h>
 
 
 // Sets default values
@@ -53,6 +54,7 @@ void AAIPatroller::SetupPlayerInputComponent(class UInputComponent* PlayerInputC
 
 
 
+
 void AAIPatroller::OnNoiseHeard(APawn* PawnInstigator, const FVector& Location, float Volume)
 {
 	AAIPatrollerController* AIController = Cast<AAIPatrollerController>(GetController()); // gets reference to player controller
@@ -67,11 +69,16 @@ void AAIPatroller::OnNoiseHeard(APawn* PawnInstigator, const FVector& Location, 
 		
 	}
 }
+void AAIPatroller::ReturnToMainMenu()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Returning to main menu"));
+	UGameplayStatics::OpenLevel(this, TEXT("MainMenu_lvl"));
+}
 void AAIPatroller::OnPlayerCaught(APawn* Pawn)
 {
 	AAIPatrollerController* AIController = Cast<AAIPatrollerController>(GetController()); // gets reference to player controller
 	
-	if (AIController)
+	if (AIController && !AIController->bPlayerCaught)
 	{
 	
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, TEXT("You've been caught"));
@@ -83,9 +90,12 @@ void AAIPatroller::OnPlayerCaught(APawn* Pawn)
 		AStealthGameMode* GM = Cast<AStealthGameMode>(GetWorld()->GetAuthGameMode());
 		if (GM)
 		{
+			
 			GM->CompleteMission(Pawn, false);
+			AIController->bPlayerCaught = true;
+			GetWorldTimerManager().SetTimer(TimerHandle, this, &AAIPatroller::ReturnToMainMenu, 5.f, false);
 		}
-	
+		
 	}
 
 }

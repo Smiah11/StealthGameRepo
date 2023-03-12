@@ -4,10 +4,12 @@
 #include "StealthGameMode.h"
 #include <Kismet/GameplayStatics.h>
 
+
 AStealthGameMode::AStealthGameMode()
 {
 
 }
+
 
 void AStealthGameMode::CompleteMission(APawn*InstigatorPawn, bool bMissionSuccess)
 {
