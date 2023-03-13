@@ -17,12 +17,14 @@ class STEALTHGAME_API  UBTClearValue : public UBTTaskNode
 
 public:
     UBTClearValue();
-
+    /* creates a task node with my own custom task */
     virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
 protected:
+    /* Select the blackboard key that needs to be cleared */
     UPROPERTY(EditAnywhere, Category = "Blackboard")
         FBlackboardKeySelector BlackboardKey;
 
+    /* Gets the blackboard key that has been selected*/
     FName GetSelectedBlackboardKey() const;
 };

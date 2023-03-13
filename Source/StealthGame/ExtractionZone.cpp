@@ -17,14 +17,14 @@ AExtractionZone::AExtractionZone()
 	ExtractionComp->SetBoxExtent(FVector(200.0f));
 	RootComponent = ExtractionComp;
 
-	ExtractionComp->OnComponentBeginOverlap.AddDynamic(this, &AExtractionZone::HandleOverlap);
+	ExtractionComp->OnComponentBeginOverlap.AddDynamic(this, &AExtractionZone::HandleOverlap);//binds the being overlap event to the HandleOverlap function
 }
 
 void AExtractionZone::ReturntoMainMenu()
 {
 
-	UE_LOG(LogTemp, Warning, TEXT("Returning to main menu"));
-	UGameplayStatics::OpenLevel(this, TEXT("MainMenu_lvl"));
+	UE_LOG(LogTemp, Warning, TEXT("Returning to main menu"));// log warning for testing
+	UGameplayStatics::OpenLevel(this, TEXT("MainMenu_lvl"));//opens main menu level
 
 }
 

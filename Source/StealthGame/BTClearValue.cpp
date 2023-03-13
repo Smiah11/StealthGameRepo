@@ -11,7 +11,7 @@
 
 UBTClearValue::UBTClearValue()
 {
-    NodeName = "Clear Blackboard Value";
+    NodeName = "Clear Blackboard Value";// name of the custom node
 }
 
 EBTNodeResult::Type UBTClearValue::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -33,6 +33,6 @@ EBTNodeResult::Type UBTClearValue::ExecuteTask(UBehaviorTreeComponent& OwnerComp
 
 FName UBTClearValue::GetSelectedBlackboardKey() const
 {
-    return BlackboardKey.SelectedKeyName;
+    return BlackboardKey.SelectedKeyName;// returns blackboard key name to be cleared
 }
 

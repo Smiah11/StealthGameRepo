@@ -87,13 +87,17 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
 
+	/* function to fire the distraction*/
 	void Fire();
 
+	/* function to end the cooldown of the distraction*/
 	void EndFireCooldown();
 
-	bool bIsOnFireCooldown;  // Whether the character is currently on fire cooldown
+	/*Checks whether the character has a cooldown for shooting the distractiob*/
+	bool bIsOnFireCooldown;
 
-	FTimerHandle FireCooldownTimerHandle;  // Timer handle for the fire cooldown
+	/*Timer Handle for the distraction cooldown*/
+	FTimerHandle FireCooldownTimerHandle;
 
 
 public:

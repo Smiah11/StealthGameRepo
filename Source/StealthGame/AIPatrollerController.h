@@ -57,18 +57,20 @@ public:
 
 	AAIPatrollerController();
 
-	int32 CurrentPatrolPoint = 0;//Checks which patrol point the AI is currently on
+	/*Checks which patrol point the AI is currently on*/
+	int32 CurrentPatrolPoint = 0;
 
+	/*function to update the blackboard with the location of the player caught*/
 	void PlayerCaught(APawn*Pawn);
 
+	/*function to update the blackboard with the location of the sound heard*/
 	void SoundHeard(const FVector& Location);
 
-
+	/*function to start behaviour tree once AI is possessed by the assigned controller*/
 	void OnPossess(APawn* const Pawn) override;
 
-	//void ReturnToObjective();
-
-	bool bPlayerCaught; // flag to check if player is already caught
+	/*Bool to check if player has already been caught*/
+	bool bPlayerCaught; 
 
 	//inline getter functions
 

@@ -48,10 +48,10 @@ void AStealthObjectiveActor::NotifyActorBeginOverlap(AActor* OtherActor)
 	{
 		MyCharacter->bIsCarryingObjective = true;
 
-		UGameplayStatics::PlaySoundAtLocation(this, CarryingSound, MyCharacter->GetActorLocation());
+		UGameplayStatics::PlaySoundAtLocation(this, CarryingSound, MyCharacter->GetActorLocation());//Plays sound once objective has been picked up
 
 		Destroy();//destroys actor to make it look like its been picked up
-		MakeNoise(1.0f, MyCharacter, GetActorLocation());
+		MakeNoise(1.0f, MyCharacter, GetActorLocation());//Makes Noise so if there's AI near they are notified
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Objective Picked Up"));
 	}
 }

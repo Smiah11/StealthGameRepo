@@ -33,13 +33,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Sound")
 		USoundBase* CarryingSound;
 
-	void SpawnEffects();//Plays Particle effect on overlap
+	/*Play particle effect on overlap*/
+	void SpawnEffects();
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
 
-
+	/* function override that allows my own logic when begin overlap occurs*/
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 };

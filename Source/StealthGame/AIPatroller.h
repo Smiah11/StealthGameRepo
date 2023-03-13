@@ -29,10 +29,14 @@ public:
 	UPROPERTY(EditAnywhere, Category = AI)
 		class UBehaviorTree* BehaviourTree;
 
+	/* allows the ai to use senses*/
 	UPROPERTY(VisibleAnywhere, Category = AI)
-		class UPawnSensingComponent* PawnSenseComp; //allows the AI to use sight for player detection
+		class UPawnSensingComponent* PawnSenseComp; 
 
+	/* function to return the main menu level*/
 	void ReturnToMainMenu();
+
+	/*timer handle to return to the menu*/
 	FTimerHandle TimerHandle;
 
 	
@@ -49,7 +53,7 @@ private:
 		void OnNoiseHeard(APawn* PawnInstigator, const FVector& Location, float Volume);
 
 	
-
+	/* FVector to for the noice location*/
 	FVector NoiseLocation;
 
 

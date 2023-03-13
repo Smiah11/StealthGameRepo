@@ -16,6 +16,7 @@ class STEALTHGAME_API AStealthGameMode : public AGameModeBase
 
 
 protected:
+	/*Actor used to switch camera viewpoint upon mission fail/success*/
 	UPROPERTY(EditDefaultsOnly, Category = "Spectating");
 	TSubclassOf<AActor>SpectatingViewpointClass;
 
@@ -23,8 +24,10 @@ protected:
 public:
 	AStealthGameMode();
 
+	/*function that contains the mission complete logic*/
 	void CompleteMission(APawn*InstigatorPawn, bool BMissionSuccess);
 
+	/*event for when mission is complete, to access in blueprint*/
 	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
 		void OnMissionComplete(APawn* InstigatorPawn, bool BMissionSuccess);
 	

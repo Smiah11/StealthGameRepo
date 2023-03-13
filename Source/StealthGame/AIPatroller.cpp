@@ -61,8 +61,8 @@ void AAIPatroller::OnNoiseHeard(APawn* PawnInstigator, const FVector& Location, 
 
 	if (AIController)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Sound has been heard"));
-		DrawDebugSphere(GetWorld(), Location, 32.0f, 12, FColor::Cyan, false, 10.0f);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Sound has been heard"));// debug text shown once sound has been heard
+		DrawDebugSphere(GetWorld(), Location, 32.0f, 12, FColor::Cyan, false, 10.0f);// debug sphere shown on sound location
 		DrawDebugString(GetWorld(), Location, "Distracted", nullptr, FColor::Cyan, 0.5f, true);
 		GetCharacterMovement()-> MaxWalkSpeed = 350.f;
 		AIController->SoundHeard(Location);//controls the ai after sound was heard and location was identified

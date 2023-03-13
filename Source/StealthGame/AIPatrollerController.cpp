@@ -35,7 +35,7 @@ void AAIPatrollerController::PlayerCaught(APawn* const pawn)
 	if (BlackboardComp)
 	{
 		
-		BlackboardComp->SetValueAsObject(MoveToPlayerKey, pawn);
+		BlackboardComp->SetValueAsObject(MoveToPlayerKey, pawn);//sets the blackboard value to the location of the player
 	}
 }
 //updates the blackboard of the AI controller with the location of the sound that was heard so that the patroller can move to that location
@@ -47,19 +47,18 @@ void AAIPatrollerController::SoundHeard(const FVector& Location)
 
 	if (BlackboardComponent)
 	{
-		BlackboardComponent->SetValueAsVector(MoveToSoundKey, Location);
+		BlackboardComponent->SetValueAsVector(MoveToSoundKey, Location);// sets the blackboard value to the location of the sound
 		
 	}
 
-	// Move the AI to the noise location using the AI Move To task node
 	if (AIController)
 	{
-		AIController->MoveToLocation(Location);
+		AIController->MoveToLocation(Location);// Move the AI to the noise location using the AI Move To task node
 		
 	}
 }
 
-
+//function called when ai is possesed by the AIPatrollerController
 void AAIPatrollerController::OnPossess(APawn* const pawn)
 {
 	Super::OnPossess(pawn);
@@ -74,10 +73,9 @@ void AAIPatrollerController::OnPossess(APawn* const pawn)
 			BlackboardComp->InitializeBlackboard(*(AICharacter->BehaviourTree->BlackboardAsset)); //IF IS NOT NULL blackboard is then initalised
 		}
 
-		//populate Patrol Point Array
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AAIPatrolPoint::StaticClass(), PatrolPoints);
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AAIPatrolPoint::StaticClass(), PatrolPoints);//populate Patrol Point Array
 
-		BehaviourComp->StartTree(*AICharacter->BehaviourTree);
+		BehaviourComp->StartTree(*AICharacter->BehaviourTree);//starts the behaviour tree
 		
 	}
 }

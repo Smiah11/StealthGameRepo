@@ -14,6 +14,7 @@ class STEALTHGAME_API UBTSelectPatrolPoint : public UBTTaskNode
 {
 	GENERATED_BODY()
 
+		/* perform the task logic*/
 		virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)override;
 	
 };

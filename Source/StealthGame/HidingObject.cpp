@@ -14,8 +14,8 @@ AHidingObject::AHidingObject()
 	BoxCollision->SetCollisionResponseToAllChannels(ECR_Overlap);
 	RootComponent = BoxCollision;
 
-	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &AHidingObject::OnOverlapBegin);
-	BoxCollision->OnComponentEndOverlap.AddDynamic(this, &AHidingObject::OnOverlapEnd);
+	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &AHidingObject::OnOverlapBegin);//binds the function to the overlap begin event
+	BoxCollision->OnComponentEndOverlap.AddDynamic(this, &AHidingObject::OnOverlapEnd);//binds the function to the overlap end event
 
 
 }
@@ -27,17 +27,17 @@ void AHidingObject::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AAc
 {
 	if (OtherActor && OtherActor != this)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("You are hidden"));
-		OtherActor->SetActorHiddenInGame(true);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("You are hidden"));//debug text to show the actor is hidden
+		OtherActor->SetActorHiddenInGame(true);//sets actor to be hidden
 	}
 }
-
+//function that allows the player upon exiting the object to be visible again
 void AHidingObject::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	if (OtherActor && OtherActor != this)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Silver, TEXT("You are no longer hidden"));
-		OtherActor->SetActorHiddenInGame(false);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Silver, TEXT("You are no longer hidden"));//debug text to show the actor is no visible again
+		OtherActor->SetActorHiddenInGame(false);//sets actor to be visible again
 	}
 
 }
