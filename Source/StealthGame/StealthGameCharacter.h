@@ -59,6 +59,9 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
 		bool bIsCarryingObjective; 
 
+	// The duration of the fire cooldown
+	UPROPERTY(EditAnywhere, Category = Gameplay)
+		float FireCooldownDuration;  
 
 protected:
 
@@ -85,6 +88,12 @@ protected:
 	// End of APawn interface
 
 	void Fire();
+
+	void EndFireCooldown();
+
+	bool bIsOnFireCooldown;  // Whether the character is currently on fire cooldown
+
+	FTimerHandle FireCooldownTimerHandle;  // Timer handle for the fire cooldown
 
 
 public:

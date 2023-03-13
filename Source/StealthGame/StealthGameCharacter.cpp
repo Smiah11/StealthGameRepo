@@ -32,12 +32,8 @@ AStealthGameCharacter::AStealthGameCharacter()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	// Create a mesh component that will be used when being viewed from a '3rd person' view (when controlling this pawn)
-	//Mesh3PComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh"));
-	//Mesh3PComponent->CastShadow = false;
-	//Mesh3PComponent->SetRelativeRotation = FRotator(2.0f, -15.0f, 5.0f);
-	//Mesh3PComponent->SetRelativeLocation = FVector(0, 0, -160.0f);
-	
+	FireCooldownDuration = 2.0f; // 2 second cooldown
+	bIsOnFireCooldown = false;
 
 	
 
@@ -99,37 +95,56 @@ void AStealthGameCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 
 void AStealthGameCharacter::Fire()
 {
-	// try and fire a projectile
-	if (ProjectileClass!=NULL)
-	{		
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Distraction Used"));
-		
-		FVector SpawnLocation = ACharacter::GetMesh()->GetSocketLocation("Distraction");// Get the Distraction socket location
-		FRotator SpawnRotation = ACharacter::GetMesh()->GetSocketRotation("Distraction");// Get the Distraction socket rotation
-		
-		//Set Spawn Collision Handling Override
-		FActorSpawnParameters ActorSpawnParams;// Specifies the parameters for spawning an actor
-		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-		ActorSpawnParams.Instigator = this;//Specifies the instigator of the actor being spawned
 
-
-		// spawn the projectile at the SOCKET
-		GetWorld()->SpawnActor<ADistractionProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-		//DrawDebugSphere(GetWorld(), HandLocation, 50.f, 12, FColor::Red, false, 5.f);
-	}
-
-	// try and play the sound if specified
-	if (FireSound != NULL)
+	if (bIsOnFireCooldown)
 	{
-		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-	}
-
-	// try and play a firing animation if specified
-	if (FireAnimation != NULL)
-	{
+		// just checks if currently on cooldown, so they can't fire yet
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("You're on a cooldown"));
+		return;
 		
-		PlayAnimMontage(FireAnimation);
 	}
+	
+		// try and fire a projectile
+		if (ProjectileClass != NULL)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Distraction Used"));
+
+			FVector SpawnLocation = ACharacter::GetMesh()->GetSocketLocation("Distraction");// Get the Distraction socket location
+			FRotator SpawnRotation = ACharacter::GetMesh()->GetSocketRotation("Distraction");// Get the Distraction socket rotation
+
+			//Set Spawn Collision Handling Override
+			FActorSpawnParameters ActorSpawnParams;// Specifies the parameters for spawning an actor
+			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+			ActorSpawnParams.Instigator = this;//Specifies the instigator of the actor being spawned
+
+
+			// spawn the projectile at the SOCKET
+
+			GetWorld()->SpawnActor<ADistractionProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+			//DrawDebugSphere(GetWorld(), HandLocation, 50.f, 12, FColor::Red, false, 5.f);
+		}
+
+		// try and play the sound if specified
+		if (FireSound != NULL)
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+		}
+
+		// try and play a firing animation if specified
+		if (FireAnimation != NULL)
+		{
+
+			PlayAnimMontage(FireAnimation);
+		}
+		// Put the Fire ability on cooldown
+		bIsOnFireCooldown = true;
+		GetWorldTimerManager().SetTimer(FireCooldownTimerHandle, this, &AStealthGameCharacter::EndFireCooldown, FireCooldownDuration, false);
+
+}
+
+void AStealthGameCharacter::EndFireCooldown()
+{
+	bIsOnFireCooldown = false;
 }
 
 void AStealthGameCharacter::StartCrouch()

@@ -30,6 +30,7 @@ ADistractionProjectile::ADistractionProjectile()
 	ProjectileMovement->MaxSpeed = 2000.f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = true;
+	
 
 
 	// Die after 3 seconds by default
@@ -39,13 +40,13 @@ ADistractionProjectile::ADistractionProjectile()
 
 void ADistractionProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	// Only add impulse and destroy projectile if we hit a physics
+	// Only add impulse if hitting a physics enabled object 
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 
 	
 	}
-	MakeNoise(1.0f, GetInstigator());
-	Destroy();
+	MakeNoise(1.0f, GetInstigator());//make noise to notify the ai
+	Destroy();// destroy projectile on impact
 }

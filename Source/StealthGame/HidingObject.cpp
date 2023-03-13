@@ -27,6 +27,7 @@ void AHidingObject::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AAc
 {
 	if (OtherActor && OtherActor != this)
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("You are hidden"));
 		OtherActor->SetActorHiddenInGame(true);
 	}
 }
@@ -35,6 +36,7 @@ void AHidingObject::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActo
 {
 	if (OtherActor && OtherActor != this)
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Silver, TEXT("You are no longer hidden"));
 		OtherActor->SetActorHiddenInGame(false);
 	}
 
