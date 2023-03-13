@@ -28,7 +28,7 @@ AAIPatrollerController::AAIPatrollerController()
 	CurrentPatrolPoint = 0;
 
 }
-
+//updates the blackboard of the AI controller with the location of the player that was caught so that the patroller can move to that location
 void AAIPatrollerController::PlayerCaught(APawn* const pawn)
 {
 	
@@ -38,6 +38,7 @@ void AAIPatrollerController::PlayerCaught(APawn* const pawn)
 		BlackboardComp->SetValueAsObject(MoveToPlayerKey, pawn);
 	}
 }
+//updates the blackboard of the AI controller with the location of the sound that was heard so that the patroller can move to that location
 void AAIPatrollerController::SoundHeard(const FVector& Location)
 {
 

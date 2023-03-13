@@ -71,14 +71,14 @@ void AAIPatroller::OnNoiseHeard(APawn* PawnInstigator, const FVector& Location, 
 }
 void AAIPatroller::ReturnToMainMenu()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Returning to main menu"));
-	UGameplayStatics::OpenLevel(this, TEXT("MainMenu_lvl"));
+	UE_LOG(LogTemp, Warning, TEXT("Returning to main menu"));//log text for debugging
+	UGameplayStatics::OpenLevel(this, TEXT("MainMenu_lvl"));//open the main menu level
 }
 void AAIPatroller::OnPlayerCaught(APawn* Pawn)
 {
 	AAIPatrollerController* AIController = Cast<AAIPatrollerController>(GetController()); // gets reference to player controller
 	
-	if (AIController && !AIController->bPlayerCaught)
+	if (AIController && !AIController->bPlayerCaught)//checks if the controller exists and if the player has not been caught already
 	{
 	
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Purple, TEXT("You've been caught"));
@@ -91,9 +91,9 @@ void AAIPatroller::OnPlayerCaught(APawn* Pawn)
 		if (GM)
 		{
 			
-			GM->CompleteMission(Pawn, false);
-			AIController->bPlayerCaught = true;
-			GetWorldTimerManager().SetTimer(TimerHandle, this, &AAIPatroller::ReturnToMainMenu, 5.f, false);
+			GM->CompleteMission(Pawn, false);//calls a function in the gamemode to end the game
+			AIController->bPlayerCaught = true;//sets player caught to true so that the ai does not call the function again
+			GetWorldTimerManager().SetTimer(TimerHandle, this, &AAIPatroller::ReturnToMainMenu, 5.f, false);//after 5 seconds the game will return to the main menu
 		}
 		
 	}

@@ -42,7 +42,7 @@ void AExtractionZone::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AA
 		if (GM)
 		{
 			GM->CompleteMission(MyChar,true);// mission success
-			GetWorldTimerManager().SetTimer(TimerHandle_MainMenu, this, &AExtractionZone::ReturntoMainMenu, 5.0f);
+			GetWorldTimerManager().SetTimer(TimerHandle_MainMenu, this, &AExtractionZone::ReturntoMainMenu, 5.0f);//Return to main menu after 5 seconds
 		}
 	}
 }
